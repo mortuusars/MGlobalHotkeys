@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <IncludeBuiltProjectOutputGroup>true</IncludeBuiltProjectOutputGroup>
+	  <Description>Simple Global Hotkey handler that allows for multiple hotkeys to be registered.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="SharpHotkeys.WPF" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
