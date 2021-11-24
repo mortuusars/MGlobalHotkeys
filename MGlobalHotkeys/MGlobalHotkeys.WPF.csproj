@@ -18,6 +18,8 @@
 	  <PackageTags>wpf hotkeys global shortcut hotkey</PackageTags>
 	  <PackageReleaseNotes>1.0.1 - Fix documentation. Changed namespace to 'MGlobalHotkeys.WPF'</PackageReleaseNotes>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
