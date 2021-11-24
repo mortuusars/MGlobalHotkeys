@@ -17,7 +17,15 @@
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>wpf hotkeys global shortcut hotkey</PackageTags>
 	  <PackageReleaseNotes>1.0.1 - Fix documentation. Changed namespace to 'MGlobalHotkeys.WPF'</PackageReleaseNotes>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
 	  <PackageReference Include="SharpHotkeys.WPF" Version="1.0.0" />
