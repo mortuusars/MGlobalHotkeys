@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace MGlobalHotkeys;
+namespace MGlobalHotkeys.WPF;
 
 /// <summary>
 /// Provides funcionality to register and remove global hotkeys.
@@ -12,6 +12,9 @@ public class GlobalHotkeys
     /// </summary>
     public Dictionary<Hotkey, SharpHotkeys.WPF.Hotkey> Hotkeys { get; }
 
+    /// <summary>
+    /// Provides funcionality to register and remove global hotkeys.
+    /// </summary>
     public GlobalHotkeys()
     {
         Hotkeys = new Dictionary<Hotkey, SharpHotkeys.WPF.Hotkey>();
@@ -27,7 +30,7 @@ public class GlobalHotkeys
     /// <returns><see langword="true"/> if registered successfully. Otherwise <see langword="false"/>.</returns>
     public bool TryRegister(Hotkey hotkey, IntPtr windowHandle, Action onHotkeyPressed, out string errorMessage)
     {
-        if (hotkey.Key == Key.None)
+        if (hotkey.Key is Key.None or Key.NoName)
         {
             errorMessage = $"<{hotkey}> is not a valid hotkey.";
             return false;

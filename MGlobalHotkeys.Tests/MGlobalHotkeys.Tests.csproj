@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MGlobalHotkeys\MGlobalHotkeys.csproj" />
+    <ProjectReference Include="..\MGlobalHotkeys\MGlobalHotkeys.WPF.csproj" />
   </ItemGroup>
 
 </Project>

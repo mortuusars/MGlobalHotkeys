@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGlobalHotkeys", "MGlobalHotkeys\MGlobalHotkeys.csproj", "{EC7E87DF-7F8D-488B-9411-B421C4506D4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MGlobalHotkeys.WPF", "MGlobalHotkeys\MGlobalHotkeys.WPF.csproj", "{EC7E87DF-7F8D-488B-9411-B421C4506D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGlobalHotkeys.Tests", "MGlobalHotkeys.Tests\MGlobalHotkeys.Tests.csproj", "{ED9497A3-9DCB-478E-B0C6-53CA73A58A9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MGlobalHotkeys.Tests", "MGlobalHotkeys.Tests\MGlobalHotkeys.Tests.csproj", "{ED9497A3-9DCB-478E-B0C6-53CA73A58A9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

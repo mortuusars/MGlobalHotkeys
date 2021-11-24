@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+	  <IncludeBuiltProjectOutputGroup>true</IncludeBuiltProjectOutputGroup>
+	  <Description>Simple Global Hotkey handler that allows for multiple hotkeys to be registered. Also provides HotkeyPicker control.</Description>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Authors>mortuus</Authors>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <Version>1.0.1</Version>
+	  <PackageProjectUrl>https://github.com/mortuusars/MGlobalHotkeys</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/mortuusars/MGlobalHotkeys</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>wpf hotkeys global shortcut hotkey</PackageTags>
+	  <PackageReleaseNotes>1.0.1 - Fix documentation. Changed namespace to 'MGlobalHotkeys.WPF'</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="SharpHotkeys.WPF" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>

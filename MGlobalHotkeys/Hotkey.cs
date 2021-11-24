@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows.Input;
 
-namespace MGlobalHotkeys;
+namespace MGlobalHotkeys.WPF;
 
 /// <summary>
 /// Represents a key with modifiers.
 /// </summary>
 public record Hotkey
 {
+    /// <summary>
+    /// Main Key of the hotkey.
+    /// </summary>
     public Key Key { get; init; }
+    /// <summary>
+    /// Modifiers of the hotkey.
+    /// </summary>
     public ModifierKeys Modifiers { get; init; }
 
     /// <summary>
@@ -20,6 +22,11 @@ public record Hotkey
     /// </summary>
     public static Hotkey Empty { get; } = new Hotkey(Key.None, ModifierKeys.None);
 
+    /// <summary>
+    /// Creates an instance of Hotkey class, representing a key with modifiers.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="modifiers"></param>
     public Hotkey(Key key, ModifierKeys modifiers)
     {
         Key = key;
@@ -27,9 +34,11 @@ public record Hotkey
     }
 
     /// <summary>
-    /// Parse Hotkey from string representation.
+    /// Parse Hotkey from string representation of keys separated by '+'.<br/>
+    /// Input Example: 'Ctrl + Alt + B'
     /// </summary>
-    /// <param name="hotkey"></param>
+    /// <param name="hotkey">String representation of a hotkey with or without modifiers. Ignores case.</param>
+    /// <returns>Hotkey that matches input string. </returns>
     /// <exception cref="ArgumentNullException">Thrown if input string is null.</exception>
     public static Hotkey FromString(string hotkey)
     {
@@ -59,6 +68,10 @@ public record Hotkey
         return new Hotkey(key, modifierKeys);
     }
 
+    /// <summary>
+    /// Outputs a string representation of a Hotkey, e.g 'Ctrl + Shift + A'.
+    /// </summary>
+    /// <returns>Hotkey as a string.</returns>
     public override string ToString()
     {
         var str = new StringBuilder();
