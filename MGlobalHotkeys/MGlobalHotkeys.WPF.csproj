@@ -16,7 +16,7 @@
 	  <RepositoryUrl>https://github.com/mortuusars/MGlobalHotkeys</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>wpf hotkeys global shortcut hotkey</PackageTags>
-	  <PackageReleaseNotes>1.0.2 - HotkeyPicker remove focus on Esc.</PackageReleaseNotes>
+	  <PackageReleaseNotes>1.0.2 - HotkeyPicker remove focus when clicked outside.</PackageReleaseNotes>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>

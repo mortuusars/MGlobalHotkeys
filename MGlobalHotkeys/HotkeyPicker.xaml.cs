@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -111,10 +112,9 @@ public partial class HotkeyPicker : UserControl
 
         MouseLeftButtonDown += HotkeyPicker_MouseLeftButtonDown;
 
+        HotkeyTextBox.IsKeyboardFocusedChanged += HotkeyTextBox_IsKeyboardFocusedChanged;
         HotkeyTextBox.PreviewMouseLeftButtonDown += HotkeyTextBox_PreviewMouseLeftButtonDown;
         HotkeyTextBox.LostMouseCapture += HotkeyPicker_LostMouseCapture;
-
-        HotkeyTextBox.IsKeyboardFocusedChanged += HotkeyTextBox_IsKeyboardFocusedChanged;
     }
 
     private void HotkeyPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -142,7 +142,7 @@ public partial class HotkeyPicker : UserControl
     }
 
     private void HotkeyTextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
+    {        
         if (!_mouseCaptured)
         {
             e.Handled = true;
