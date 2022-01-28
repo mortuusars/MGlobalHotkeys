@@ -1,29 +1,26 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MGlobalHotkeys.WPF;
 
 public partial class HotkeyPicker : UserControl
 {
     /// <summary>
-    /// Allows binding. Two way by default.
+    /// Indicates whether HotkeyPicker is focused and accepts input.
     /// </summary>
-    public static readonly DependencyProperty HotkeyProperty =
-        DependencyProperty.Register(nameof(Hotkey), typeof(Hotkey), typeof(HotkeyPicker),
-            new FrameworkPropertyMetadata(default(Hotkey), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+    public new bool IsFocused
+    {
+        get { return (bool)GetValue(IsFocusedProperty); }
+        set { SetValue(IsFocusedProperty, value); }
+    }
 
     /// <summary>
-    /// Controls if focus should be removed from HotkeyPicker control on cancel (Pressing ESC when picking a hotkey).
+    /// propdp of IsFocused.
     /// </summary>
-    public static readonly DependencyProperty ClearFocusOnCancelProperty =
-        DependencyProperty.Register("ClearFocusOnCancel", typeof(bool), typeof(HotkeyPicker), new PropertyMetadata(true));
-
-    /// <summary>
-    /// Controls if focus should be removed from HotkeyPicker control after clearing set hotkey (Pressing Del or Backspace when picking a hotkey).
-    /// </summary>
-    public static readonly DependencyProperty ClearFocusOnClearProperty =
-        DependencyProperty.Register("ClearFocusOnClear", typeof(bool), typeof(HotkeyPicker), new PropertyMetadata(true));
+    public  static new readonly DependencyProperty IsFocusedProperty =
+        DependencyProperty.Register(nameof(IsFocused), typeof(bool), typeof(HotkeyPicker), new PropertyMetadata(false));
 
     /// <summary>
     /// Allows binding. Two way by default.
@@ -35,6 +32,13 @@ public partial class HotkeyPicker : UserControl
     }
 
     /// <summary>
+    /// Allows binding. Two way by default.
+    /// </summary>
+    public static readonly DependencyProperty HotkeyProperty =
+        DependencyProperty.Register(nameof(Hotkey), typeof(Hotkey), typeof(HotkeyPicker),
+            new FrameworkPropertyMetadata(default(Hotkey), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+    /// <summary>
     /// Controls if focus should be removed from HotkeyPicker control after cancelling (Pressing ESC when picking a hotkey).
     /// </summary>
     public bool ClearFocusOnCancel
@@ -42,6 +46,12 @@ public partial class HotkeyPicker : UserControl
         get { return (bool)GetValue(ClearFocusOnCancelProperty); }
         set { SetValue(ClearFocusOnCancelProperty, value); }
     }
+
+    /// <summary>
+    /// Controls if focus should be removed from HotkeyPicker control on cancel (Pressing ESC when picking a hotkey).
+    /// </summary>
+    public static readonly DependencyProperty ClearFocusOnCancelProperty =
+        DependencyProperty.Register("ClearFocusOnCancel", typeof(bool), typeof(HotkeyPicker), new PropertyMetadata(true));
 
     /// <summary>
     /// Controls if focus should be removed from HotkeyPicker control after clearing set hotkey (Pressing Del or Backspace when picking a hotkey).
@@ -52,7 +62,45 @@ public partial class HotkeyPicker : UserControl
         set { SetValue(ClearFocusOnClearProperty, value); }
     }
 
+    /// <summary>
+    /// Controls if focus should be removed from HotkeyPicker control after clearing set hotkey (Pressing Del or Backspace when picking a hotkey).
+    /// </summary>
+    public static readonly DependencyProperty ClearFocusOnClearProperty =
+        DependencyProperty.Register("ClearFocusOnClear", typeof(bool), typeof(HotkeyPicker), new PropertyMetadata(true));
+
+    /// <summary>
+    /// Corner radius of a control's border.
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+        set { SetValue(CornerRadiusProperty, value); }
+    }
+
+    /// <summary>
+    /// propdp of a CornerRadius.
+    /// </summary>
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(HotkeyPicker), new PropertyMetadata(new CornerRadius(0)));
+
+    /// <summary>
+    /// Brush of the selected text.
+    /// </summary>
+    public Brush SelectionBrush
+    {
+        get { return (Brush)GetValue(SelectionBrushProperty); }
+        set { SetValue(SelectionBrushProperty, value); }
+    }
+
+    /// <summary>
+    /// propdp of the SelectionBrush
+    /// </summary>
+    public static readonly DependencyProperty SelectionBrushProperty =
+        DependencyProperty.Register(nameof(SelectionBrush), typeof(Brush), typeof(HotkeyPicker), new PropertyMetadata(Brushes.SkyBlue));
+
+
     private Hotkey? _previousHotkey = null;
+    private bool _mouseCaptured = false;
 
     /// <summary>
     /// Allows to pick hotkeys by pressing them.
@@ -60,6 +108,62 @@ public partial class HotkeyPicker : UserControl
     public HotkeyPicker()
     {
         InitializeComponent();
+
+        MouseLeftButtonDown += HotkeyPicker_MouseLeftButtonDown;
+
+        HotkeyTextBox.PreviewMouseLeftButtonDown += HotkeyTextBox_PreviewMouseLeftButtonDown;
+        HotkeyTextBox.LostMouseCapture += HotkeyPicker_LostMouseCapture;
+
+        HotkeyTextBox.IsKeyboardFocusedChanged += HotkeyTextBox_IsKeyboardFocusedChanged;
+    }
+
+    private void HotkeyPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (!_mouseCaptured)
+        {
+            ActivateEditMode();
+            e.Handled = true;
+        }
+    }
+
+    private void ActivateEditMode()
+    {
+        _mouseCaptured = true;
+        HotkeyTextBox.Focus();
+        HotkeyTextBox.CaptureMouse();
+
+        // Clear selection. Setting it directly does not work. This just delays it a tiny bit.
+        Dispatcher.BeginInvoke(() => HotkeyTextBox.SelectionLength = 0);
+    }
+
+    private void HotkeyTextBox_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        IsFocused = (bool)e.NewValue;
+    }
+
+    private void HotkeyTextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (!_mouseCaptured)
+        {
+            e.Handled = true;
+            ActivateEditMode();
+        }
+        else
+        {
+            var hitTestResult = VisualTreeHelper.HitTest(this, Mouse.GetPosition(this));
+
+            if (hitTestResult is null)
+            {
+                e.Handled = true;
+                ReleaseMouseRemoveFocus();
+            }
+        }
+    }
+
+    private void HotkeyPicker_LostMouseCapture(object sender, MouseEventArgs e)
+    {
+        if (_mouseCaptured)
+            HotkeyTextBox.CaptureMouse();
     }
 
     private void HotkeyTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -79,7 +183,7 @@ public partial class HotkeyPicker : UserControl
         {
             Hotkey = _previousHotkey;
             if (ClearFocusOnCancel)
-                ClearFocus();
+                ReleaseMouseRemoveFocus();
             return;
         }
 
@@ -87,7 +191,7 @@ public partial class HotkeyPicker : UserControl
         {
             Hotkey = Hotkey.Empty;
             if (ClearFocusOnClear)
-                ClearFocus();
+                ReleaseMouseRemoveFocus();
             return;
         }
 
@@ -95,12 +199,6 @@ public partial class HotkeyPicker : UserControl
             return;
 
         Hotkey = new Hotkey(key, modifiers);
-    }
-
-    private void ClearFocus()
-    {
-        FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
-        Keyboard.ClearFocus();
     }
 
     private bool IsModifier(Key key)
@@ -118,8 +216,14 @@ public partial class HotkeyPicker : UserControl
             key == Key.Apps;
     }
 
-    private void HotkeyTextBox_LostFocus(object sender, RoutedEventArgs e)
+    private void ReleaseMouseRemoveFocus()
     {
         _previousHotkey = Hotkey;
+        _mouseCaptured = false;
+        HotkeyTextBox.ReleaseMouseCapture();
+        HotkeyTextBox.MoveFocusToParent();
+
+        //FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
+        //    Keyboard.ClearFocus();
     }
 }

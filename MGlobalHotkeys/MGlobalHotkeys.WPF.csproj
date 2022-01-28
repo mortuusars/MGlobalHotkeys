@@ -11,12 +11,12 @@
 	  <Authors>mortuus</Authors>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	  <Version>1.0.1</Version>
+	  <Version>1.0.2</Version>
 	  <PackageProjectUrl>https://github.com/mortuusars/MGlobalHotkeys</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/mortuusars/MGlobalHotkeys</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>wpf hotkeys global shortcut hotkey</PackageTags>
-	  <PackageReleaseNotes>1.0.1 - Fix documentation. Changed namespace to 'MGlobalHotkeys.WPF'</PackageReleaseNotes>
+	  <PackageReleaseNotes>1.0.2 - HotkeyPicker remove focus on Esc.</PackageReleaseNotes>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>

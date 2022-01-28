@@ -1,3 +1,4 @@
+using MGlobalHotkeys.WPF;
 using System;
 using System.Windows.Input;
 using Xunit;
